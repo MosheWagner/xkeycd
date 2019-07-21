@@ -1,2 +1,4 @@
 # xkeycd
-XKCD keyword search
+XKCD keyword search.
+
+Check it out at https://moshewagner.github.io/xkeycd/ 
