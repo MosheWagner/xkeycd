@@ -4,20 +4,18 @@ import json
 GLOBAL_FREQ_DECAY_FACTOR = 2
 LOCAL_FREQ_EXP_FACTOR = 3
 
-OUTPUT_FOLDER = 'cache'
+CACHE_FOLDER = 'cache'
+OUTPUT_FOLDER = '..'
 
 # Sum all word_freqs
 # Word score = word_count_in_comic / word_count_total (so uniqe words have a higher score)
 # Build reverse index - keyword: (comic, exp_score, trans_score)
-# 
 
-def get_comic_count():
-    return 2177 # TODO: Fix this
 
 
 def load_freq_dicts():
     d = {}
-    keyword_files = [(int(f.split('_')[1].split('.')[0]), os.path.join(OUTPUT_FOLDER, f)) for f in os.listdir(OUTPUT_FOLDER) if 'keywords_' in f and f.endswith('.json')]
+    keyword_files = [(int(f.split('_')[1].split('.')[0]), os.path.join(CACHE_FOLDER, f)) for f in os.listdir(CACHE_FOLDER) if 'keywords_' in f and f.endswith('.json')]
     for i, f in keyword_files:
         d[i] = json.loads(open(f, 'r').read())
     
@@ -78,16 +76,20 @@ def build_reverse_index(comic_keyword_dicts, global_freq_dict):
     return keyword_dict
     
     
-def build_score_index():
+def compute_score_index():
     comic_keyword_dicts = load_freq_dicts()
     global_freq_dict = sum_global_word_freq(comic_keyword_dicts)
     return build_reverse_index(comic_keyword_dicts, global_freq_dict)
     
 
-    
-if __name__ == "__main__":
-    scores = build_score_index()
+def create_score_index():
+    print "Scoring all keywords and creating final index"
+    scores = compute_score_index()
     with open(os.path.join(OUTPUT_FOLDER, 'scores.json'), 'w') as f:
         f.write(json.dumps(scores))
+    
+    
+#if __name__ == "__main__":
+#    create_score_index()
         
     

@@ -2,7 +2,7 @@ import os
 import sys
 import json
 
-OUTPUT_FOLDER = 'cache'
+OUTPUT_FOLDER = '..'
 
 MAX_RES = 10
 
@@ -25,14 +25,20 @@ def find_by_keywords(keywords, kw_score_index, num_res = MAX_RES):
 
 
 def main():
+    score_path = os.path.join(OUTPUT_FOLDER, 'scores.json')
+    
+    if not os.path.exists(score_path):
+        from scrape import scrape_all
+        from keyword_score import create_score_index
+        scrape_all()
+        create_score_index()
+    
     keywords = sys.argv[1:]
     
-    kw_score_index = json.loads(open(os.path.join(OUTPUT_FOLDER, 'scores.json'), 'r').read())
+    kw_score_index = json.loads(open(score_path, 'r').read())
     
     res = find_by_keywords(keywords, kw_score_index)
     print res
-    
-
 
 
 if __name__ == '__main__':
