@@ -1,4 +1,6 @@
-- Convert to python 3 :-(
+- Make the homepage look like something...
+
+- Stop removing "'" for the title and tooltip :-)
 
 - Support multiple Keywords (with nice UI support too)
 
@@ -7,4 +9,6 @@
 - Tweak the scores a bit for better results
 
 - Set a minimal score value under which it should not be considered a hit for that comic
+
+- Convert to python 3 :-(
 
