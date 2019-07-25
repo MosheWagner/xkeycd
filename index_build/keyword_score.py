@@ -5,7 +5,7 @@ GLOBAL_FREQ_DECAY_FACTOR = 2
 LOCAL_FREQ_EXP_FACTOR = 3
 
 CACHE_FOLDER = 'cache'
-OUTPUT_FOLDER = '..'
+OUTPUT_FOLDER = os.path.join('..', 'site')
 
 # Sum all word_freqs
 # Word score = word_count_in_comic / word_count_total (so uniqe words have a higher score)

@@ -1,9 +1,5 @@
 - Convert to python 3 :-(
 
-- Each image should link to the real XKCD site (and so should the title above it, which should include the real title of the comic)
-
-- Show tooltip text beneath each result
-
 - Support multiple Keywords (with nice UI support too)
 
 - Find decent CSS for the input bar to look OK
@@ -12,4 +8,3 @@
 
 - Set a minimal score value under which it should not be considered a hit for that comic
 
-- Set max results back to 10
