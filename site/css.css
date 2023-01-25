@@ -1,3 +1,11 @@
+@font-face {
+	font-family: xkcd;
+	src: url('https://cdn.rawgit.com/ipython/xkcd-font/master/xkcd-script/font/xkcd-script.woff') format('woff');
+}
+.xkcd {
+  font-family: xkcd;
+}    
+
 .bootstrap-tagsinput {
   background-color: #fff;
   border: none;
