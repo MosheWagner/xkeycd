@@ -27,7 +27,7 @@ def find_by_keywords(keywords, kw_score_index, num_res = MAX_RES):
         if kw not in kw_score_index:
             continue
             
-        for comic_id, scores in kw_score_index[kw].iteritems():
+        for comic_id, scores in kw_score_index[kw].items():
             if comic_id not in comic_scores:
                 comic_scores[comic_id] = 0
             comic_scores[comic_id] += TRANSCRIPT_FACTOR * scores.get('transcript_score', 0) + EXPLANATION_FACTOR * scores.get('explanation_score', 0)
@@ -70,7 +70,6 @@ def main():
         kw_score_index = json.loads(open(score_path, 'r').read())
         
         res = find_by_keywords(keywords, kw_score_index)
-        print(res)
 
 
 if __name__ == '__main__':

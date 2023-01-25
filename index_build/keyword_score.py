@@ -25,16 +25,16 @@ def load_freq_dicts():
 def sum_global_word_freq(comic_keyword_dicts):
     freq_dict = {}
     
-    for comic_id, keywords in comic_keyword_dicts.iteritems():
+    for comic_id, keywords in comic_keyword_dicts.items():
         exp_kw = keywords['explanation_keywords']
         trans_kw = keywords['transcript_keywords']
         
-        for kw, count in exp_kw.iteritems():
+        for kw, count in exp_kw.items():
             if kw not in freq_dict:
                 freq_dict[kw] = 0
             freq_dict[kw] += count
 
-        for kw, count in trans_kw.iteritems():
+        for kw, count in trans_kw.items():
             if kw not in freq_dict:
                 freq_dict[kw] = 0
             freq_dict[kw] += count
@@ -49,11 +49,11 @@ def get_word_score(local_word_freq, global_word_freq):
 def build_reverse_index(comic_keyword_dicts, global_freq_dict):
     keyword_dict = {}
 
-    for comic_id, keywords in comic_keyword_dicts.iteritems():
+    for comic_id, keywords in comic_keyword_dicts.items():
         exp_kw = keywords['explanation_keywords']
         trans_kw = keywords['transcript_keywords']
         
-        for kw, count in exp_kw.iteritems():
+        for kw, count in exp_kw.items():
             if kw not in keyword_dict:
                 keyword_dict[kw] = {}
             if comic_id not in keyword_dict[kw]:
@@ -63,7 +63,7 @@ def build_reverse_index(comic_keyword_dicts, global_freq_dict):
                 
             keyword_dict[kw][comic_id]['explanation_score'] = get_word_score(count, global_freq_dict[kw])
             
-        for kw, count in trans_kw.iteritems():
+        for kw, count in trans_kw.items():
             if kw not in keyword_dict:
                 keyword_dict[kw] = {}
             if comic_id not in keyword_dict[kw]:
