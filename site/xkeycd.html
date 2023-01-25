@@ -1,15 +1,24 @@
+<!DOCTYPE html>	
 <html>  
 
 <head>
     <meta charset="utf-8">
     <title>XKeyCD</title>
     
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha512-MoRNloxbStBcD8z3M/2BmnT+rg4IsMxPkXaGh2zD6LGNNFE80W3onsAhRcMAMrSoyWL9xD7Ert0men7vR8LUZg==" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" integrity="sha512-xmGTNt20S0t62wHLmQec2DauG9T+owP9e6VU8GigI0anN7OXLip9i7IwEhelasml2osdxX71XcYm6BQunTQeQg==" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" integrity="sha512-9UR1ynHntZdqHnwXKTaOm1s6V9fExqejKvg5XMawEMToW4sSw+3jtLrYfZPijvnwnnE8Uol1O9BcAskoxgec+g==" crossorigin="anonymous"></script>
+    <script src="http://twitter.github.io/typeahead.js/releases/latest/bloodhound.js"></script>
+	<script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
     
+	<link rel="stylesheet" href="css.css">
     <script src="xkeycd.js"></script>
 </head>
+
+
 
 <body>
     <center>
@@ -23,6 +32,9 @@
         <label for="kws"></label>
         <input id="kws">
     </div>
+	<div>
+	<input name="tags" id="tags-input" />
+	</div>
     </p>
         
     <br><br>
