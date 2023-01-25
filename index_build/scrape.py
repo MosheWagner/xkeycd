@@ -1,5 +1,6 @@
 import os
 import re
+import time
 import json
 import string
 import requests
@@ -25,9 +26,16 @@ def get_last_xkcd_num():
 def get_explained_comic_full(comic_id):
     cache_file = os.path.join(CACHE_FOLDER, 'explained_{}.html'.format(comic_id))
     if not os.path.exists(cache_file):
+        if not os.path.exists(CACHE_FOLDER):
+            os.makedirs(CACHE_FOLDER)
+            
         r = requests.get(EXPLAIN_XKCD_COMIC_URL.format(comic_id))
+        if '503 Service Unavailable' in r.text:
+            time.sleep(10)
+            r = requests.get(EXPLAIN_XKCD_COMIC_URL.format(comic_id))
+            
         with open(cache_file, 'w') as f:
-            f.write(r.content)
+            f.write(r.text)
             
     return open(cache_file, 'r').read()
     
@@ -35,7 +43,7 @@ def get_explained_comic_full(comic_id):
 def clean_char(c):
     if c in string.ascii_letters:
         return c
-    if c in [',', '.', '?', '!', '-', '_']:
+    if c in [',', '.', '?', '!', '-', '_', "'"]:
         return c
     return ' '
     
@@ -117,7 +125,7 @@ def extract_comic_keywords(explanation_text, transcript_text):
     
     
 def get_xkcd_keywords(comic_id):
-    print 'Getting keywords for ', comic_id
+    print('Getting keywords for ', comic_id)
     cache_file = os.path.join(CACHE_FOLDER, 'keywords_{}.json'.format(comic_id))
     if not os.path.exists(cache_file):
         explanation_kw, transcript_kw = extract_comic_keywords(*parse_explained_comic_html(get_explained_comic_full(comic_id)))
@@ -134,7 +142,7 @@ def t_get_xkcd_keywords(comic_id):
         get_xkcd_keywords(comic_id)
     except Exception:
         for i in range(1):
-            print 'Exception while working on :', comic_id
+            print('Exception while working on :', comic_id)
 
 
 def get_all_keywords(multi_proc_mode = False):
@@ -153,7 +161,7 @@ def get_xkcd_page(comic_id):
     if not os.path.exists(cache_file):
         r = requests.get(XKCD.format(comic_id))
         with open(cache_file, 'w') as f:
-            f.write(r.content)
+            f.write(r.text)
             
     return open(cache_file, 'r').read()
     
@@ -163,7 +171,6 @@ def get_image_link(comic_id):
         return 'https://www.explainxkcd.com/wiki/images/9/92/not_found.png' # :-)
     if comic_id == 1037:
         return 'https://www.explainxkcd.com/wiki/images/f/ff/umwelt_the_void.jpg' # :-)
-    
     xkcd_page = get_xkcd_page(comic_id)
     comic_link = xkcd_page.split('Image URL (for hotlinking/embedding):')[1].split('\n')[0].strip()
     return comic_link
@@ -173,7 +180,7 @@ def t_get_image_link(comic_id):
     try:
         return get_image_link(comic_id)
     except Exception as e:
-        print repr(e), comic_id
+        print(repr(e), comic_id)
         
 
 def get_all_comic_links(multi_proc_mode = False):
@@ -194,19 +201,19 @@ def get_all_comic_links(multi_proc_mode = False):
             explained_html_text = get_explained_comic_full(i)
             links[i]['title_text'] = get_xkcd_title(explained_html_text)
             links[i]['tooltip'] = get_xkcd_tooltip(explained_html_text)
-            print links[i]
+            print(links[i])
             
         with open(json_path, 'w') as f:
             f.write(json.dumps(links))
 
 
 def scrape_all(multi_proc_mode = False):
-    print "Extracing XKCD image links"
+    print("Extracing XKCD image links")
     if multi_proc_mode:
         get_all_comic_links(True)
     get_all_comic_links(False)
     
-    print "Scraping XKCD and ExplainXKCD, and extracting keywords"
+    print("Scraping XKCD and ExplainXKCD, and extracting keywords")
     get_all_keywords(multi_proc_mode)
 
     

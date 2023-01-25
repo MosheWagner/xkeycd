@@ -65,5 +65,6 @@ def _lemmatize_blob(blob_text):
 def normalize_word(w):
     return _lemmatize_word(w)
 
+
 def normalize_text(text):
     return _lemmatize_blob(text)

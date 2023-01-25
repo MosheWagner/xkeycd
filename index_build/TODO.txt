@@ -1,7 +1,5 @@
 - Make the homepage look like something...
 
-- Stop removing "'" for the title and tooltip :-)
-
 - Support multiple Keywords (with nice UI support too)
 
 - Find decent CSS for the input bar to look OK
@@ -9,6 +7,4 @@
 - Tweak the scores a bit for better results
 
 - Set a minimal score value under which it should not be considered a hit for that comic
-
-- Convert to python 3 :-(
 

@@ -83,7 +83,7 @@ def compute_score_index():
     
 
 def create_score_index():
-    print "Scoring all keywords and creating final index"
+    print("Scoring all keywords and creating final index")
     scores = compute_score_index()
     with open(os.path.join(OUTPUT_FOLDER, 'scores.json'), 'w') as f:
         f.write(json.dumps(scores))

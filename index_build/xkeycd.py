@@ -17,8 +17,8 @@ EXPLANATION_FACTOR = 1
 def try_del(file_path):
     try:
         os.remove(file_path)
-    except WindowsError as e:
-        assert 'The system cannot find the file' in repr(e), 'Error removing file {} - {}'.format(file_path, repr(e))
+    except (OSError, AssertionError) as e:
+        assert 'The system cannot find the file' in repr(e) or 'No such file' in repr(e), 'Error removing file {} - {}'.format(file_path, repr(e))
     
 
 def find_by_keywords(keywords, kw_score_index, num_res = MAX_RES):
@@ -70,7 +70,7 @@ def main():
         kw_score_index = json.loads(open(score_path, 'r').read())
         
         res = find_by_keywords(keywords, kw_score_index)
-        print res
+        print(res)
 
 
 if __name__ == '__main__':
