@@ -172,7 +172,7 @@ def get_image_link(comic_id):
     if comic_id == 1037:
         return 'https://www.explainxkcd.com/wiki/images/f/ff/umwelt_the_void.jpg' # :-)
     xkcd_page = get_xkcd_page(comic_id)
-    comic_link = xkcd_page.split('Image URL (for hotlinking/embedding):')[1].split('\n')[0].strip()
+    comic_link = xkcd_page.split('Image URL (for hotlinking/embedding):')[1].split('</a>')[0].split('">')[1].strip()
     return comic_link
 
 
@@ -201,7 +201,6 @@ def get_all_comic_links(multi_proc_mode = False):
             explained_html_text = get_explained_comic_full(i)
             links[i]['title_text'] = get_xkcd_title(explained_html_text)
             links[i]['tooltip'] = get_xkcd_tooltip(explained_html_text)
-            print(links[i])
             
         with open(json_path, 'w') as f:
             f.write(json.dumps(links))
